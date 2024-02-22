@@ -2,38 +2,44 @@
 #    compile every C/C++ source file into an executable
 
 # Custom Command
-CC  := g++
-GCC := gcc
-RM  := rm -f
+CC	:= gcc# C Complier Command
+CXX	:= c++# C++ Complier command
+RM	:= rm -f
 
 # Custom Options and Flags
-OUTPUT_OPTION = -o $@
-CFLAGS        += -Wall -DMACOS -D_DARWIN_C_SOURCE
-LDFLAGS       +=
-CXXFLAGS      += -std=c++20
+CFLAGS	+= -Wall
+CXXFLAGS += $(CFLAGS) -std=c++17
+CPPFLAGS +=
+LDFLAGS +=
 
 # Depended Library that Already Existed
 LDLIBS := # -lgmock
 
 # File lists
-sources := $(wildcard *.[c,cpp])
-TARGET  := $(subst .c,.app,$(subst .cpp,.app,${sources}))
+sources := $(wildcard *.c *.cpp)
+TARGET := $(subst .c,.app,$(subst .cpp,.app,${sources}))
 
 # Makefile targets
-.PHONY: all
+.PHONY: all clean make_debug
 all: $(TARGET)
 
-.PHONY: clean
 clean:
-	$(RM) $(TARGET)
+	$(if $(wildcard $(TARGET)),$(RM) $(TARGET),)
 
-.PHONY: makedump
-makedump:
-	# sources: $(sources)
-	# TARGET: $(TARGET)
+make_debug:
+	# Source files      # sources: $(sources)
+	# Building targets  # TARGET: $(TARGET)
+	# C complier        # CC: $(CC)
+	# C compiler flags  # CFLAGS: $(CFLAGS)
+	# C++ compiler      # CXX: $(CXX)
+	# C++ compiler flags# CXXFLAGS: $(CXXFLAGS)
+	# Linker options    # LDFLAGS: $(LDFLAGS)
+	# Linking libraries # LDLIBS: $(LDLIBS)
+
 
 # Makefile rules
 %.app: %.cpp
-	$(CC) $(OUTPUT_OPTION) $(TARGET_ARCH) $(CFLAGS) $(CXXFLAGS) $^ $(LDFLAGS) $(LDLIBS) $(LOADLIBES)
+	$(CXX) $^ $(CXXFLAGS) $(LDFLAGS) $(LDLIBS) -o $@
+
 %.app: %.c
-	$(GCC) $(OUTPUT_OPTION) $(TARGET_ARCH) $(CFLAGS) $^ $(LDFLAGS) $(LDLIBS) $(LOADLIBES)
+	$(CC) $^ $(CFLAGS) $(LDFLAGS) $(LDLIBS) -o $@
