@@ -32,13 +32,7 @@ public:
                 return combination;
             }
 
-            m_indices.resize(m_len);
-            auto cit = m_sources.cbegin();
-            for (auto& index: m_indices) {
-                index = cit;
-                std::advance(cit, 1);
-            }
-
+            m_indices = get_range(m_sources.cbegin(), m_sources.cbegin()+m_len);
             return iterators_to_values(m_indices);
         }
 

@@ -45,5 +45,5 @@ std::vector<T> pointers_to_values(const std::vector<T*> pointers) {
 }
 
 #include "combinations.h"
-
+#include "permutations.h"
 #endif //_ITERATOR_TOOLS_H_
