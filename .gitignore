@@ -34,3 +34,4 @@
 # cache files
 .ipynb_checkpoints
 
+temp.*
