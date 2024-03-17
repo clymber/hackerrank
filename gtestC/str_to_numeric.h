@@ -66,4 +66,28 @@ T to_integral(const std::string& str) {
     return sign * result;
 }
 
+// Interpret a decimal character string into an 8-bit signed integer.
+#define str_to_int8(str)   to_integral<int8_t>(str)
+
+// Interpret a decimal character string into an 16-bit signed integer.
+#define str_to_int16(str)  to_integral<int16_t>(str)
+
+// Interpret a decimal character string into an 32-bit signed integer.
+#define str_to_int32(str)  to_integral<int32_t>(str)
+
+// Interpret a decimal character string into an 64-bit signed integer.
+#define str_to_int64(str)  to_integral<int64_t>(str)
+
+// Interpret a decimal character string into an 8-bit unsigned integer.
+#define str_to_uint8(str)  to_integral<uint8_t>(str)
+
+// Interpret a decimal character string into an 16-bit unsigned integer.
+#define str_to_uint16(str) to_integral<uint16_t>(str)
+
+// Interpret a decimal character string into an 32-bit unsigned integer.
+#define str_to_uint32(str) to_integral<uint32_t>(str)
+
+// Interpret a decimal character string into an 64-bit unsigned integer.
+#define str_to_uint64(str) to_integral<uint64_t>(str)
+
 #endif // _STR_TO_NUMERIC_H_
