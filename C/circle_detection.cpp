@@ -1,6 +1,7 @@
 #include <iostream>
 #include <algorithm>
 #include <tuple>
+using std::tie;
 
 // https://en.wikipedia.org/wiki/Cycle_detection
 template<typename func_t, typename step_t>
@@ -46,6 +47,8 @@ std::tuple<bool, size_t, size_t> tortoise_hare_run(const func_t& run,
 }
 
 int main(int argc, char* argv[]) {
+    bool cyclic{false};
+    size_t circlepoint{0}, circumference{0};
     // size_t N{3}, S{1}, P{1}, Q{1}; // 3
     size_t N{100000000}, S{569099406}, P{1607140150}, Q{823906344}; // 31
     // size_t N{100000000}, S{1506922183}, P{1236189611}, Q{306853238}; // 100000000
@@ -53,12 +56,10 @@ int main(int argc, char* argv[]) {
     // size_t N{100000000}, S{831602480}, P{704408287}, Q{1134515747};
 
     auto detect = [&P, &Q](size_t step){return (step*P+Q)&0x7FFFFFFF;};
-    auto result = tortoise_hare_run(detect, S, N);
-    if (std::get<0>(result) == false) {
+    tie(cyclic, circlepoint, circumference) = tortoise_hare_run(detect, S, N);
+    if (!cyclic) {
         std::cout << "No circle was detected. N: " << N << std::endl;
     } else {
-        const size_t& circlepoint = std::get<1>(result);
-        const size_t& circumference = std::get<2>(result);
         std::cout << "Circle was detected. Starting point: " << circlepoint;
         std::cout << ", circumference: " << circumference << ", N = ";
         std::cout << std::min(N, circlepoint+circumference) << std::endl;
