@@ -66,6 +66,8 @@ T to_integral(const std::string& str) {
     return sign * result;
 }
 
+int8_t to_int8(const std::string str) { return to_integral<int8_t>(str); }
+
 // Interpret a decimal character string into an 8-bit signed integer.
 #define str_to_int8(str)   to_integral<int8_t>(str)
 
